@@ -79,3 +79,12 @@ service.getItemVersions = async (projectId, itemId, token) => {
     const resp = await new APS.ItemsApi().getItemVersions(projectId, itemId, null, internalAuthClient, token);
     return resp.body.data;
 }
+
+service.getItem = async (projectId, itemId, token) => {
+    const resp = await new APS.ItemsApi().getItem(projectId, itemId, internalAuthClient, token);
+    return resp.body.data;
+}
+
+service.getFolders = async () => {
+    const resp = await new APS.FoldersApi().getFolderContents()
+}

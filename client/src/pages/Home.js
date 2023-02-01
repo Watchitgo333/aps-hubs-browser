@@ -1,7 +1,27 @@
-import { AppBar, Toolbar, Box, Typography, IconButton, Button } from '@mui/material';
+import { AppBar, Toolbar, Box, Typography, IconButton, Button, responsiveFontSizes } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 const Home = () => {
+
+    const [profile, setProfile] = useState({});
+    const [loaded, setLoaded] = useState(false);
+
+    async function login(){        
+        return axios.get('http://localhost:8080/api/auth/login')
+        .then((response)=>{
+            console.log(response.data)
+            window.location.replace(response.data);
+            setLoaded(true);
+            return response.data;
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    
+    
 
     return(
         <div className='viewer-home'>
@@ -20,7 +40,11 @@ const Home = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         M&E Consulting
                     </Typography>
-                    <Button color="inherit">Update</Button>
+                    <Button color="inherit" onClick={login}>
+                    {
+                        loaded ? 'Logout' : 'Login'
+                    }
+                    </Button>
                     </Toolbar>
                 </AppBar>
             </Box>
